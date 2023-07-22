@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder_app/screen/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-
+                Navigator.pushNamed(context, RegistrationScreen.id);
               },
               child: const Text('Create account')
           ),

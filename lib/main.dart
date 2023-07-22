@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:recipe_finder_app/screen/login_screen.dart';
+import 'package:recipe_finder_app/screen/registration_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,7 +20,8 @@ class RecipeFinderApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: LoginScreen.id,
       routes: {
-        LoginScreen.id: (context) => const LoginScreen()
+        LoginScreen.id : (context) => const LoginScreen(),
+        RegistrationScreen.id : (context) => const RegistrationScreen()
       },
     );
   }
