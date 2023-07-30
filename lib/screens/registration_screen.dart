@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder_app/components/text_field.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({super.key});
@@ -27,21 +28,21 @@ class RegistrationScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const TextSubmitForm(),
+      body: const SubmitTextRegForm(),
     );
   }
 }
 
-class TextSubmitForm extends StatefulWidget {
-  const TextSubmitForm({
+class SubmitTextRegForm extends StatefulWidget {
+  const SubmitTextRegForm({
     super.key
   });
 
   @override
-  State<TextSubmitForm> createState() => _TextSubmitFormState();
+  State<SubmitTextRegForm> createState() => _SubmitTextRegFormState();
 }
 
-class _TextSubmitFormState extends State<TextSubmitForm> {
+class _SubmitTextRegFormState extends State<SubmitTextRegForm> {
   final _auth = FirebaseAuth.instance;
 
   final _formKey = GlobalKey<FormState>();
@@ -86,6 +87,7 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
       _auth.authStateChanges().listen((User? user) async {
         if(user != null) {
           await user.updateDisplayName(_name);
+          Navigator.pop(context);
         }
       });
     }
@@ -98,7 +100,7 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RegTextFormField(
+          SubmitTextFormField(
             hintText: 'Full Name',
             submitted: _submitted,
             validator: checkFieldEmpty,
@@ -108,7 +110,7 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
               });
             }
           ),
-          RegTextFormField(
+          SubmitTextFormField(
             hintText: 'Email',
             submitted: _submitted,
             validator: checkFieldEmpty,
@@ -118,7 +120,7 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
               });
             }
           ),
-          RegTextFormField(
+          SubmitTextFormField(
             hintText: 'Password',
             submitted: _submitted,
             validator: checkFieldEmpty,
@@ -129,7 +131,7 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
               });
             }
           ),
-          RegTextFormField(
+          SubmitTextFormField(
             hintText: 'Confirm Password',
             submitted: _submitted,
             validator: checkConfPassword,
@@ -149,36 +151,3 @@ class _TextSubmitFormState extends State<TextSubmitForm> {
     );
   }
 }
-
-class RegTextFormField extends StatelessWidget {
-  const RegTextFormField({
-    super.key,
-    this.hintText,
-    this.submitted,
-    required this.onSubmit,
-    this.validator,
-    this.obscuringText = false
-  });
-
-  final String? hintText;
-  final bool? submitted;
-  final ValueChanged<String> onSubmit;
-  final String? Function(String?)? validator;
-  final bool obscuringText;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: hintText
-      ),
-      autovalidateMode: submitted!
-        ? AutovalidateMode.onUserInteraction
-        : AutovalidateMode.disabled,
-      validator: validator,
-      onChanged: (text) => onSubmit(text),
-      obscureText: obscuringText,
-    );
-  }
-}
-
