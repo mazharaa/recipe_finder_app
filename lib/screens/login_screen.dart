@@ -37,9 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login () async {
     try {
       await auth.signInWithEmailAndPassword(
-          email: _email,
-          password: _password
+        email: _email,
+        password: _password
       );
+      Navigator.pushNamed(context, HomeScreen.id);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -53,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       _login();
-      Navigator.pushNamed(context, HomeScreen.id);
     }
   }
 
