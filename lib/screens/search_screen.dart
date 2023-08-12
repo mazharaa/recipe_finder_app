@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder_app/model/recipe_model.dart';
+import 'package:recipe_finder_app/screens/recipe_details_screen.dart';
 import 'package:recipe_finder_app/service/recipe_service.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -57,7 +58,16 @@ class _SearchScreenState extends State<SearchScreen> {
               itemBuilder: (context, index) {
                 final recipe = _searchResults[index];
                 return ListTile(
-                  title: Text(recipe.name),
+                  title: TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return RecipeDetailsScreen(recipe: recipe);
+                        })
+                      );
+                    },
+                    child: Text(recipe.name),
+                  ),
                 );
               }
             ),

@@ -28,7 +28,8 @@ class RecipeService {
         name: recipeData['recipe']['label'],
         thumbnailUrl: recipeData['recipe']['images']['THUMBNAIL']['url'],
         ingredients: ingredients,
-        instructions: recipeData['recipe']['url']
+        instructions: recipeData['recipe']['url'],
+        imageUrl: recipeData['recipe']['images']['SMALL']['url']
       );
     }).toList();
   }
